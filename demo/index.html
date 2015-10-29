@@ -21,34 +21,13 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
   "use strict";
-  var five = require("johnny-five");
-  var Galileo = require("galileo-io");
-  var board = new five.Board({
-      io: new Galileo()
-  });
   // first we make sure annyang started succesfully
   if (annyang) {
-
     // define the functions our commands will run.
     var hello = function() {
-     alert('Hello world!');
+      $("#hello").slideDown("slow");
+      scrollTo("#section_hello");
     };
-
-    var openlight = function() {
-      board.on("ready", function() {
-      this.pinMode(2, this.MODES.OUTPUT);
-      board.digitalWrite(2, 1);
-    });
-    };
-
-    var turnofflight = function() {
-      board.on("ready", function() {
-      this.pinMode(2, this.MODES.OUTPUT);
-      board.digitalWrite(2, 0);
-    });
-    };
-
-
     var showFlickr = function(tag) {
       $('#flickrGallery').show();
       $('#flickrLoader p').text('Searching for '+tag).fadeIn('fast');
@@ -63,7 +42,6 @@
       });
       scrollTo("#section_image_search");
     };
-
     var jsonFlickrApi = function(results) {
       $('#flickrLoader p').fadeOut('slow');
       var photos = results.photos.photo;
@@ -74,7 +52,6 @@
           .appendTo(flickrGallery);
       });
     };
-
     var showTPS = function(type) {
       $('#tpsreport').show().animate({
         bottom: '-100px'
@@ -82,35 +59,27 @@
         bottom: '-500px'
       });
     };
-
     var getStarted = function() {
       window.location.href = 'https://github.com/TalAter/annyang';
     }
-
     // define our commands.
     // * The key is the phrase you want your users to say.
     // * The value is the action to do.
     //   You can pass a function, a function name (as a string), or write your function as part of the commands object.
     var commands = {
       'hello (there)':        hello,
-      'open light':           openlight,
-      'turn off light':       turnofflight,
       'show me *search':      showFlickr,
       'show :type report':    showTPS,
       'let\'s get started':   getStarted,
     };
-
     // OPTIONAL: activate debug mode for detailed logging in the console
     annyang.debug();
-
     // Add voice commands to respond to
     annyang.addCommands(commands);
-
     // OPTIONAL: Set a language for speech recognition (defaults to English)
     // For a full list of language codes, see the documentation:
     // https://github.com/TalAter/annyang/blob/master/docs/README.md#languages
     annyang.setLanguage('en');
-
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
   } else {
@@ -118,7 +87,6 @@
       $('#unsupported').fadeIn('fast');
     });
   }
-
   var scrollTo = function(identifier, speed) {
     $('html, body').animate({
         scrollTop: $(identifier).offset().top
