@@ -41,6 +41,9 @@
       });
       scrollTo("#section_image_search");
     };
+    var openLight = function(tag){
+    	alert('open light ' + tag);
+    }
     var jsonFlickrApi = function(results) {
       $('#flickrLoader p').fadeOut('slow');
       var photos = results.photos.photo;
@@ -70,6 +73,8 @@
       'show me *search':      showFlickr,
       'show :type report':    showTPS,
       'let\'s get started':   getStarted,
+      'open light *number': 	openLight,
+
     };
     // OPTIONAL: activate debug mode for detailed logging in the console
     annyang.debug();
