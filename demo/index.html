@@ -19,10 +19,9 @@
     document.write(annyangScript.outerHTML)
   </script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="bundle.js"></script>
   <script>
   "use strict";
-  var five = require("johnny-five");
-  var Galileo = require("galileo-io");
   var board = new five.Board({
       io: new Galileo()
   });
